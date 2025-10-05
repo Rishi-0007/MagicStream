@@ -1,15 +1,35 @@
+# dependencies
 /node_modules
-.env
+
+# next.js build output
+.next
+
+# production build
 /dist
+
+# environment variables
+.env
+
+# misc
 .DS_Store
 *.log
+
+# IDEs and editors
 .idea
 .vscode
+
+# swap files
 *.swp
 *.swo
+
+# test coverage
 coverage
+
+# npm/yarn/pnpm logs
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
+
+# TypeScript build info
 *.tsbuildinfo
