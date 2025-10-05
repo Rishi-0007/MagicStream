@@ -1,0 +1,19 @@
+openapi: 3.0.3
+info: { title: MagicStream API, version: 0.3.0 }
+servers: [ { url: http://localhost:8080 } ]
+paths:
+  /health: { get: { summary: Health, responses: { '200': { description: OK } } } }
+  /api/auth/register: { post: { summary: Register, responses: { '200': { description: OK } } } }
+  /api/auth/login: { post: { summary: Login, responses: { '200': { description: OK } } } }
+  /api/auth/refresh: { post: { summary: Refresh, responses: { '200': { description: OK } } } }
+  /api/movies: { get: { summary: List movies, responses: { '200': { description: OK } } } }
+  /api/movies/{imdb_id}:
+    get:
+      summary: Get
+      parameters: [ { in: path, name: imdb_id, required: true, schema: { type: string } } ]
+      responses: { '200': { description: OK } }
+  /api/search:
+    get:
+      summary: Search
+      parameters: [ { in: query, name: q, required: true, schema: { type: string } } ]
+      responses: { '200': { description: OK } }
