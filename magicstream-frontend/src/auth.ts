@@ -1,6 +1,6 @@
-import NextAuth, { type DefaultSession } from "next-auth";
-import Google from "next-auth/providers/google";
-import Credentials from "next-auth/providers/credentials";
+import NextAuth, { type DefaultSession, type NextAuthOptions } from "next-auth";
+import GoogleProvider from "next-auth/providers/google";
+import CredentialsProvider from "next-auth/providers/credentials";
 
 declare module "next-auth" {
   interface Session extends DefaultSession {
@@ -39,15 +39,15 @@ async function exchangeGoogleIdToken(idToken: string) {
   }>;
 }
 
-export const { handlers, signIn, signOut, auth } = NextAuth({
+export const authOptions: NextAuthOptions = {
   session: { strategy: "jwt" },
   providers: [
-    Google({
-      clientId: process.env.GOOGLE_CLIENT_ID!,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
+    GoogleProvider({
+      clientId: process.env.GOOGLE_CLIENT_ID || "",
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET || "",
       allowDangerousEmailAccountLinking: true,
     }),
-    Credentials({
+    CredentialsProvider({
       name: "Credentials",
       credentials: {
         email: { label: "Email", type: "email" },
@@ -91,13 +91,14 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       return token;
     },
     async session({ session, token }) {
-      (session as any).backendAccess = (token as any).backendAccess(
-        session as any
-      ).backendRefresh = (token as any).backendRefresh;
+      (session as any).backendAccess = (token as any).backendAccess;
+      (session as any).backendRefresh = (token as any).backendRefresh;
       if (token.picture && session.user)
         session.user.image = token.picture as string;
       return session;
     },
   },
   pages: { signIn: "/login" },
-});
+};
+
+export default NextAuth(authOptions);
