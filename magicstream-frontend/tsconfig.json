@@ -6,7 +6,6 @@
       "dom.iterable",
       "esnext"
     ],
-    "allowJs": false,
     "skipLibCheck": true,
     "strict": true,
     "noEmit": true,
@@ -22,6 +21,7 @@
         "src/*"
       ]
     },
+    "allowJs": true,
     "esModuleInterop": true,
     "plugins": [
       {
