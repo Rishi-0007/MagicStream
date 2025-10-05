@@ -11,7 +11,6 @@ import (
 	"go.mongodb.org/mongo-driver/mongo"
 )
 
-// Normalize legacy movie docs into canonical schema. Usage: go run ./internal/tools/migrate.go
 func main() {
 	cfg := config.Load()
 	ctx := context.Background()

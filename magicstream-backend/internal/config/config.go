@@ -16,6 +16,7 @@ type Config struct {
 	RefreshTokenTTL time.Duration
 	CORSOrigins     []string
 	Env             string
+	GoogleClientID  string
 }
 
 func mustEnv(key, def string) string {
@@ -38,6 +39,7 @@ func Load() *Config {
 		RefreshTokenTTL: parseDuration(mustEnv("REFRESH_TOKEN_TTL", "168h")),
 		CORSOrigins:     parseCSV(mustEnv("CORS_ORIGINS", "*")),
 		Env:             mustEnv("ENV", "development"),
+		GoogleClientID:  mustEnv("GOOGLE_CLIENT_ID", ""),
 	}
 }
 

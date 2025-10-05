@@ -32,3 +32,6 @@ func (s *AuthService) Refresh(token string) (string, error){
 	if c.Role != "refresh" { return "", errors.New("not a refresh token") }
 	return utils.NewAccessToken(s.jwtSecret, c.UserID, "user", s.accessTTL)
 }
+func (s *AuthService) UpsertOAuth(ctx context.Context, email, name, avatarURL, provider, providerID string) (*models.User, error) {
+	return s.users.UpsertOAuthUser(ctx, email, name, avatarURL, provider, providerID)
+}

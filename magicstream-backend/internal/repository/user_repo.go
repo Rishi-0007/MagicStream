@@ -8,6 +8,7 @@ import (
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo"
+	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
 type UserRepository struct { col *mongo.Collection }
@@ -27,4 +28,20 @@ func (r *UserRepository) ByID(ctx context.Context, id string) (*models.User, err
 	obj, err := primitive.ObjectIDFromHex(id); if err != nil { return nil, err }
 	if err := r.col.FindOne(ctx, bson.M{"_id": obj}).Decode(&u); err != nil { return nil, err }
 	return &u, nil
+}
+
+func (r *UserRepository) UpsertOAuthUser(ctx context.Context, email, name, avatarURL, provider, providerID string) (*models.User, error) {
+	set := bson.M{
+		"email": email,
+		"name": name,
+		"avatar_url": avatarURL,
+		"provider": provider,
+		"provider_id": providerID,
+		"role": models.RoleUser,
+		"updated_at": time.Now().UTC(),
+	}
+	up := true
+	_, err := r.col.UpdateOne(ctx, bson.M{"email": email}, bson.M{"$set": set, "$setOnInsert": bson.M{"created_at": time.Now().UTC()}}, &options.UpdateOptions{Upsert: &up})
+	if err != nil { return nil, err }
+	return r.ByEmail(ctx, email)
 }
