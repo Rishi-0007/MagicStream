@@ -3,7 +3,8 @@ const nextConfig = {
   images: {
     remotePatterns: [
       { protocol: 'https', hostname: 'image.tmdb.org' },
-      { protocol: 'https', hostname: 'i.ytimg.com' }
+      { protocol: 'https', hostname: 'i.ytimg.com' },
+      { protocol: 'https', hostname: 'lh3.googleusercontent.com' }
     ]
   },
   experimental: { optimizeCss: true }

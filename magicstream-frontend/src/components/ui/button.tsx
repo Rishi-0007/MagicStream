@@ -1,45 +1,22 @@
 'use client'
-
 import * as React from 'react'
 import { cva, type VariantProps } from 'class-variance-authority'
 import { cn } from '@/lib/utils'
-
-const buttonVariants = cva(
-  'inline-flex items-center justify-center whitespace-nowrap rounded-[var(--radius)] text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-60',
-  {
-    variants: {
-      variant: {
-        default: 'bg-primary text-primary-foreground hover:opacity-95',
-        secondary: 'bg-secondary text-gray-900 hover:opacity-95',
-        outline: 'border border-border bg-transparent hover:bg-elevated',
-        ghost: 'hover:bg-elevated',
-        danger: 'bg-danger text-white hover:opacity-95',
-      },
-      size: {
-        sm: 'h-9 px-3',
-        md: 'h-10 px-4',
-        lg: 'h-11 px-5 text-base',
-        icon: 'h-10 w-10',
-      },
+const buttonVariants = cva('inline-flex items-center justify-center whitespace-nowrap rounded-[var(--radius)] text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-60', {
+  variants: {
+    variant: {
+      default: 'bg-primary text-primary-foreground hover:opacity-95',
+      secondary: 'bg-secondary text-gray-900 hover:opacity-95',
+      outline: 'border border-border bg-transparent hover:bg-elevated',
+      ghost: 'hover:bg-elevated',
+      danger: 'bg-danger text-white hover:opacity-95',
     },
-    defaultVariants: {
-      variant: 'default',
-      size: 'md',
-    },
+    size: { sm: 'h-9 px-3', md: 'h-10 px-4', lg: 'h-11 px-5 text-base', icon: 'h-10 w-10' },
   },
-)
-
-export interface ButtonProps
-  extends React.ButtonHTMLAttributes<HTMLButtonElement>,
-    VariantProps<typeof buttonVariants> {}
-
-export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ className, variant, size, ...props }, ref) => (
-    <button
-      ref={ref}
-      className={cn(buttonVariants({ variant, size }), className)}
-      {...props}
-    />
-  ),
-)
+  defaultVariants: { variant: 'default', size: 'md' },
+})
+export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement>, VariantProps<typeof buttonVariants> {}
+export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({ className, variant, size, ...props }, ref) => (
+  <button ref={ref} className={cn(buttonVariants({ variant, size }), className)} {...props} />
+))
 Button.displayName = 'Button'

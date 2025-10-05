@@ -1,23 +1,2 @@
-import { cn } from '@/lib/utils'
-
-export function Badge({
-  children,
-  intent = 'default',
-  className,
-}: {
-  children: React.ReactNode
-  intent?: 'default' | 'accent' | 'success' | 'danger'
-  className?: string
-}) {
-  const styles = {
-    default: 'bg-elevated text-text',
-    accent: 'bg-accent text-gray-900',
-    success: 'bg-success text-white',
-    danger: 'bg-danger text-white',
-  }[intent]
-  return (
-    <span className={cn('inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium', styles, className)}>
-      {children}
-    </span>
-  )
-}
+import { cn } from "@/lib/utils"
+export function Badge({ children, intent = "default", className }: { children: React.ReactNode; intent?: "default"|"accent"|"success"|"danger"; className?: string }) { const styles = { default: "bg-elevated text-text", accent: "bg-accent text-gray-900", success: "bg-success text-white", danger: "bg-danger text-white" }[intent]; return <span className={cn("inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium", styles, className)}>{children}</span> }
